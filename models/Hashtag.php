@@ -48,7 +48,7 @@ class Hashtag extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getHashtags()
+    public function getTweets()
     {
         return $this->hasMany(Tweet::className(), ['id' => 'id_tweet'])
         ->viaTable('tweet_hashtag', ['id_hashtag' => 'id']);

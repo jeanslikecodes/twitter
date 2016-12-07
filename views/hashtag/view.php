@@ -4,13 +4,20 @@
 /* @var $tweets \app\models\Tweet[] */
 
 ?>
-<h1>Tweets com a hashtag #<?=$hashtag?></h1>
 
-<table border=1>
-<?php foreach($tweets as $tweet): ?>
+<div class="panel panel-default">
+ <div class="panel-heading"><h3>Tweets com a hashtag #<?=$hashtag?></h3></div>
+  <table class="table">
     <tr>
-        <td><?= $tweet->texto ?></td>
-        <td><?= $tweet->tweetView ?></td>
+    	<th>Username</th>
+    	<th>Tweet</th>
     </tr>
-<?php endforeach; ?>
-</table>
+    <?php foreach($tweets as $tweet): ?>
+    <tr>
+        	<td><?= $tweet->user->username ?></td>
+        	<td><?= $tweet->tweetView ?></td>
+    </tr>
+    <?php endforeach; ?>
+  </table>
+</div>
+

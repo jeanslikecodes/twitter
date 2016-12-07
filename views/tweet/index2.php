@@ -10,14 +10,20 @@ use yii\helpers\Html;
 
 foreach($model as $tweet):
 	$username = $tweet->user->username;
+	$id = $tweet->user->id;
 endforeach;
+
+var_dump($id);
 
 $this->title = $username;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tweet-index">
 
-    <h2><?= Html::encode('Perfil de @'.$this->title."'s") ?></h2>
+    <h2><?= Html::encode('Perfil de @'.$this->title."'s") ?>
+    	<?= Html::a('Seguir @'.$username, ['site/seguir', $id], ['class' =>'btn btn-success pull-right']) ?>
+    </h2>
+	<br>
 
 	<table class="table">
 	    <tr>

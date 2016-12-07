@@ -87,22 +87,47 @@ class Tweet extends \yii\db\ActiveRecord
 
         // hashtag
         preg_match_all('/\#([A-Za-z0-9_]+)/', $texto, $hashtags);
-     //   echo '<pre>';
-//print_r($hashtags);
-//echo "</pre>";
-        foreach ($hashtags[1] as $hashtag) {
-print_r($hashtag);
-try{
-            $objHashtag = $this->getHashtags()->where(['nome' => $hashtag])->one();
- //echo 'here <h1>'.gettype($objHashtag).'</h1>';
- } catch(Exception $e){}
 
-            $id = $objHashtag;
+        // arroba
+        preg_match_all('/\@([A-Za-z0-9_]+)/', $texto, $arrobas);
+   
+        foreach ($hashtags[1] as $hashtag) {
+
+
+            $objHashtag = $this->getHashtags()->where(['nome' => $hashtag])->one();
+
+            if($objHashtag === null){
+                break;
+            }
+
+            $id = $objHashtag->id;
 
             $texto = str_replace("#$hashtag", Html::a(
                 "#$hashtag",
                 [
                     'hashtag/view',
+                    'id' => $id
+                ]
+            ), $texto);
+        }
+
+        
+
+        foreach ($arrobas[1] as $user) {
+
+
+            $objUser= User::find()->where(['username' => $user])->one();
+
+            if($objUser === null){
+                break;
+            }
+
+            $id = $objUser->id;
+
+            $texto = str_replace("@$user", Html::a(
+                "@$user",
+                [
+                    'tweet/index2',
                     'id' => $id
                 ]
             ), $texto);
@@ -140,6 +165,31 @@ try{
             $unlinkHashtags = $this->getHashtags()->where(['not in','nome',$hashtags[1]])->all();
             foreach($unlinkHashtags as $unlinkHashtag) {
                 $this->unlink('hashtags', $unlinkHashtag);
+            }
+
+        }
+
+    }
+
+    public function linkUsers()
+    {
+
+        // buscando as hashtags
+        preg_match_all('/\#([A-Za-z0-9_]+)/', $this->texto, $arrobas);
+
+        // percorrendo as hashtags encontradas no texto
+        foreach ($arrobas[1] as $usernameUser) {
+
+            // busca a hashtag
+            $user = User::find()->where(['username' => $usernameUser])->one();
+
+            // faz o link com o candidato
+            $this->link('arrobas',$user);
+
+            // busca hashtags linkadas com o candidato, que não estão no texto
+            $unlinkHashtags = $this->getUser()->where(['not in','username',$arrobas[1]])->all();
+            foreach($unlinkHashtags as $unlinkHashtag) {
+                $this->unlink('arrobas', $unlinkHashtag);
             }
 
         }

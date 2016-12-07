@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Tweet;
 use app\models\TweetSearch;
+use app\models\User;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
@@ -36,7 +37,7 @@ class TweetController extends Controller
                         'roles' => ['?'], // Qualquer usuário (logado) pode acessar essa pagina. '?' pode acessar anonimamente.
                     ], [
                         'allow' => true,
-                        'actions' => ['index', 'index1', 'view', 'create'],
+                        'actions' => ['index', 'index1', 'index2', 'view', 'create'],
                         'roles' => ['@'], // Qualquer usuário (logado) pode acessar essa pagina. '?' pode acessar anonimamente.
                     ], [
                         'allow' => true,
@@ -69,15 +70,21 @@ class TweetController extends Controller
 
     public function actionIndex1()
     {
-        
-        $model = Tweet::find()->where(['id' => Yii::$app->user->identity->id])->all();
-        /*
-        $searchModel = new TweetSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        */
+        $model = Tweet::find()->where(['id_user' => Yii::$app->user->identity->id])->all();
+
 
         return $this->render('index1', [
-            'model' => $model
+            'model' => $model,
+        ]);
+    }
+
+    public function actionIndex2()
+    {
+        $model = Tweet::find()->where(['id_user' => Yii::$app->user->identity->id])->all();
+
+
+        return $this->render('index2', [
+            'model' => $model,
         ]);
     }
 

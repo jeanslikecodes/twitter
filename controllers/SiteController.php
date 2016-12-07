@@ -140,4 +140,8 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+
+    public function actionSeguir($id) {
+        echo 'seguir'.$id;
+    }
 }
