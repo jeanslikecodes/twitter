@@ -14,6 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($model, 'username') ?>
+        <?= $form->field($model, 'email') ?>
+        <?= $form->field($model, 'perfil')->textarea(['rows' => 6]) ?>
         <?= $form->field($model, 'password')->passwordInput() ?>
         <?= $form->field($model, 'repeatPassword')->passwordInput() ?>
     

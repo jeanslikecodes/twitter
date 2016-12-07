@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\UserUser;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -142,6 +143,9 @@ class SiteController extends Controller
     }
 
     public function actionSeguir($id) {
-        echo 'seguir'.$id;
+        $userUser = new UserUser();
+        $userUser->id_user1 = Yii::$app->user->identity->id;
+        $userUser->id_user2 = $id;
+        $userUser->save();
     }
 }

@@ -17,10 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'texto') ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
-    </div>
+    <div class="form-group">    </div>
 
     <?php ActiveForm::end(); ?>
 

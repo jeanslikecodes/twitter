@@ -68,20 +68,21 @@ class TweetController extends Controller
         ]);
     }
 
-    public function actionIndex1()
+    public function actionIndex1($id)
     {
         $model = Tweet::find()->where(['id_user' => Yii::$app->user->identity->id])->all();
+        $model1 = User::finOne($id);
 
 
         return $this->render('index1', [
             'model' => $model,
+            'user' => $user,
         ]);
     }
 
-    public function actionIndex2()
-    {
-        $model = Tweet::find()->where(['id_user' => Yii::$app->user->identity->id])->all();
-
+    public function actionIndex2($id)
+    { 
+        $model = User::findOne($id);
 
         return $this->render('index2', [
             'model' => $model,

@@ -34,7 +34,7 @@ class Tweet extends \yii\db\ActiveRecord
         return [
             [['texto', 'id_user'], 'required'],
 
-            [['texto'], 'string'],
+            [['texto'], 'string', 'max' => 140],
 
             [['id_user'], 'integer'],
 

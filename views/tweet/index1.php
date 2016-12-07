@@ -8,11 +8,7 @@ use yii\helpers\Html;
 
 /* @var $tweets \app\models\Tweet[] */
 
-foreach($model as $tweet):
-	$username = $tweet->user->username;
-endforeach;
-
-$this->title = $username;
+$this->title = $user->username;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tweet-index">
@@ -21,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<table class="table">
 	    <tr>
-	    	<th><h4>Tweet</h4></th>
+	    	<th><h4>Tweets</h4></th>
 	    </tr>
 	    <?php foreach($model as $tweet): ?>
 	    <tr>

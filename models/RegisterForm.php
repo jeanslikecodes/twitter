@@ -17,6 +17,8 @@ class RegisterForm extends Model
     public $username;
     public $password;
     public $repeatPassword;
+    public $email;
+    public $perfil;
 
     /**
      * @return array the validation rules.
@@ -24,9 +26,8 @@ class RegisterForm extends Model
     public function rules()
     {
         return [
-
             // todos os campos são obrigatórios
-            [['username', 'password', 'repeatPassword'], 'required'],
+            [['username', 'email', 'password', 'repeatPassword'], 'required'],
 
             // nome de usuário deve ter apenas letras e numeros, iniciando por uma letra, e ter
             // no mínimo 4 caracteres
@@ -52,7 +53,9 @@ class RegisterForm extends Model
         return [
             'username' => 'Username',
             'password' => 'Senha',
-            'repeatPassword' => 'Repetir a Senha'
+            'repeatPassword' => 'Repetir a Senha',
+            'email' => 'Digite seu Email',
+            'perfil' => 'Conte um pouco sobre você',
         ];
     }
 
@@ -62,6 +65,9 @@ class RegisterForm extends Model
         if ($this->validate()) {
             $user = new User();
             $user->username = $this->username;
+            $user->email = $this->email;
+            $user->perfil = $this->perfil;
+            
             $user->password_hash = Yii::$app->getSecurity()->generatePasswordHash($this->password);
             $user->access_token = Yii::$app->getSecurity()->generateRandomString();
             $user->auth_key = Yii::$app->getSecurity()->generateRandomString();
